@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4 text-center">军团管理</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="alert alert-info">
+            <i class="fas fa-circle-info me-2"></i>
+            这里维护的是<b>要统计哪些军团的成员</b>。战斗统计只会收录此处列出军团的角色。
+            通用版默认<b>为空</b>，首次使用请先添加你自己的军团。
+            <br>
+            <span class="opacity-75">军团 ID 可在
+                <a href="https://zkillboard.com" target="_blank" rel="noopener" class="alert-link">zKillboard</a>
+                或 <a href="https://br.evetools.org" target="_blank" rel="noopener" class="alert-link">BR 工具</a>
+                的军团页面地址中找到（形如 <code>/corporation/98769610/</code> 中那串数字）。</span>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">添加军团</div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">军团ID</label>
+                        <input type="text" class="form-control" name="corp_id"
+                               placeholder="请输入军团 ID（纯数字）" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">军团名称</label>
+                        <input type="text" class="form-control" name="corp_name"
+                               placeholder="仅用于展示，可自定义" required>
+                    </div>
+                    <button type="submit" name="add_corp" class="btn btn-primary">添加军团</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">军团列表（{{ corps|length }} 个）</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for id, name in corps.items() %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ name }} (ID: {{ id }})
+                        <form method="POST" class="d-inline"
+                              onsubmit="return confirm('确定要删除该军团吗？');">
+                            <input type="hidden" name="delete" value="{{ id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">删除</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item text-center opacity-75">暂无军团，请在上方添加</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

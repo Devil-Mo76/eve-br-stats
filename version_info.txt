@@ -1,0 +1,36 @@
+# UTF-8
+#
+# 打包 EXE 的版本信息（右键 EXE -> 属性 -> 详细信息 里显示的内容）
+# 【需修改】把下面的公司名、说明、版权换成你自己的信息
+#
+# For more details about this file, see the Microsoft documentation:
+# https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource
+
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1, 1, 0, 0),
+    prodvers=(1, 1, 0, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+    ),
+  kids=[
+    StringFileInfo(
+      [
+      StringTable(
+        u'040904B0',
+        [StringStruct(u'CompanyName', u'Your Name'),
+        StringStruct(u'FileDescription', u'EVE Online BR 战斗统计系统'),
+        StringStruct(u'FileVersion', u'1.1.0.0'),
+        StringStruct(u'InternalName', u'BRStatisticsTool'),
+        StringStruct(u'LegalCopyright', u'Copyright (C) 2025'),
+        StringStruct(u'OriginalFilename', u'BRStatisticsTool.exe'),
+        StringStruct(u'ProductName', u'BRStatisticsTool'),
+        StringStruct(u'ProductVersion', u'1.1.0.0')])
+      ]),
+    VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
+  ]
+)

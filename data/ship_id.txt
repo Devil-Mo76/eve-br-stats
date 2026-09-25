@@ -1,0 +1,405 @@
+582_Bantam
+583_Condor
+584_Griffin
+585_Slasher
+586_Probe
+587_Rifter
+589_Executioner
+590_Inquisitor
+591_Tormentor
+592_Navitas
+593_Tristan
+594_Incursus
+597_Punisher
+598_Breacher
+599_Burst
+602_Kestrel
+603_Merlin
+605_Heron
+607_Imicus
+608_Atron
+609_Maulus
+2161_Crucifier
+3532_Echelon
+3766_Vigil
+11940_Gold Magnate
+11942_Silver Magnate
+17619_Caldari Navy Hookbill
+17703_Imperial Navy Slicer
+17812_Republic Fleet Firetail
+17841_Federation Navy Comet
+17924_Succubus
+17926_Cruor
+17928_Daredevil
+17930_Worm
+17932_Dramiel
+29248_Magnate
+32880_Venture
+33468_Astero
+33816_Garmur
+37453_Crucifier Navy Issue
+37454_Vigil Fleet Issue
+37455_Griffin Navy Issue
+37456_Maulus Navy Issue
+47269_Damavik
+54731_Skybreaker
+72903_Probe Fleet Issue
+72904_Heron Navy Issue
+72907_Magnate Navy Issue
+72913_Imicus Navy Issue
+77114_Metamorphosis
+620_Osprey
+621_Caracal
+622_Stabber
+623_Moa
+624_Maller
+625_Augoror
+626_Vexor
+627_Thorax
+628_Arbitrator
+629_Rupture
+630_Bellicose
+631_Scythe
+632_Blackbird
+633_Celestis
+634_Exequror
+635_Opux Luxury Yacht
+2006_Omen
+11011_Guardian-Vexor
+17634_Caracal Navy Issue
+17709_Omen Navy Issue
+17713_Stabber Fleet Issue
+17715_Gila
+17718_Phantasm
+17720_Cynabal
+17722_Vigilant
+17843_Vexor Navy Issue
+17922_Ashimmu
+29336_Scythe Fleet Issue
+29337_Augoror Navy Issue
+29340_Osprey Navy Issue
+29344_Exequror Navy Issue
+33470_Stratios
+33553_Stratios Emergency Responder
+33818_Orthrus
+34590_Victorieux Luxury Yacht
+47270_Vedmak
+49712_Rodiva
+54732_Stormbringer
+638_Raven
+639_Tempest
+640_Scorpion
+641_Megathron
+642_Apocalypse
+643_Armageddon
+644_Typhoon
+645_Dominix
+11936_Apocalypse Imperial Issue
+11938_Armageddon Imperial Issue
+13202_Megathron Federate Issue
+17636_Raven Navy Issue
+17726_Apocalypse Navy Issue
+17728_Megathron Navy Issue
+17732_Tempest Fleet Issue
+17736_Nightmare
+17738_Machariel
+17740_Vindicator
+17918_Rattlesnake
+17920_Bhaalgorn
+24688_Rokh
+24690_Hyperion
+24692_Abaddon
+24694_Maelstrom
+26840_Raven State Issue
+26842_Tempest Tribal Issue
+32305_Armageddon Navy Issue
+32307_Dominix Navy Issue
+32309_Scorpion Navy Issue
+32311_Typhoon Fleet Issue
+33472_Nestor
+33820_Barghest
+47271_Leshak
+47466_Praxis
+54733_Thunderchild
+648_Badger
+649_Tayra
+650_Nereus
+651_Hoarder
+652_Mammoth
+653_Wreathe
+654_Kryos
+655_Epithal
+656_Miasmos
+657_Iteron Mark V
+1944_Bestower
+2863_Primae
+2998_Noctis
+4363_Miasmos Quafe Ultra Edition
+4388_Miasmos Quafe Ultramarine Edition
+19744_Sigil
+32811_Miasmos Amastris Edition
+81008_Squall
+670_Capsule
+33328_Capsule - Genolution 'Auroral' 197-variant
+671_Erebus
+3764_Leviathan
+11567_Avatar
+23773_Ragnarok
+42126_Vanquisher
+42241_Molok
+45649_Komodo
+78576_Azariel
+672_Caldari Shuttle
+11129_Gallente Shuttle
+11132_Minmatar Shuttle
+11134_Amarr Shuttle
+21097_Goru's Shuttle
+21628_Guristas Shuttle
+29266_Apotheosis
+30842_InterBus Shuttle
+33513_Leopard
+34496_Council Diplomatic Shuttle
+64034_Boobook
+588_Reaper
+596_Impairor
+601_Ibis
+606_Velator
+615_Immolator
+617_Echo
+33079_Hematos
+33081_Taipan
+33083_Violator
+2834_Utu
+3516_Malice
+11365_Vengeance
+11371_Wolf
+11379_Hawk
+11381_Harpy
+11393_Retribution
+11400_Jaguar
+12042_Ishkur
+12044_Enyo
+32207_Freki
+32788_Cambion
+52250_Nergal
+74141_Geri
+78414_Shapash
+2836_Adrestia
+3518_Vangel
+11993_Cerberus
+11999_Vagabond
+12003_Zealot
+12005_Ishtar
+12011_Eagle
+12015_Muninn
+12019_Sacrilege
+12023_Deimos
+32209_Mimir
+52252_Ikitursa
+74316_Bestla
+77726_Cybele
+12731_Bustard
+12745_Occator
+12747_Mastodon
+12753_Impel
+81047_Torrent
+3756_Gnosis
+16227_Ferox
+16229_Brutix
+16231_Cyclone
+16233_Prophecy
+24696_Harbinger
+24698_Drake
+24700_Myrmidon
+24702_Hurricane
+33151_Brutix Navy Issue
+33153_Drake Navy Issue
+33155_Harbinger Navy Issue
+33157_Hurricane Fleet Issue
+49711_Drekavac
+72811_Cyclone Fleet Issue
+72812_Ferox Navy Issue
+72869_Myrmidon Navy Issue
+72872_Prophecy Navy Issue
+78366_Alligator
+78369_Khizriel
+85086_Cenotaph
+16236_Coercer
+16238_Cormorant
+16240_Catalyst
+16242_Thrasher
+32872_Algos
+32874_Dragoon
+32876_Corax
+32878_Talwar
+42685_Sunesis
+49710_Kikimora
+73789_Coercer Navy Issue
+73794_Thrasher Fleet Issue
+73795_Cormorant Navy Issue
+73796_Catalyst Navy Issue
+78333_Mekubal
+78367_Mamba
+85087_Tholos
+17476_Covetor
+17478_Retriever
+17480_Procurer
+19720_Revelation
+19722_Naglfar
+19724_Moros
+19726_Phoenix
+42124_Vehement
+42243_Chemosh
+45647_Caiman
+52907_Zirnitra
+73787_Naglfar Fleet Issue
+73790_Revelation Navy Issue
+73792_Moros Navy Issue
+73793_Phoenix Navy Issue
+20183_Providence
+20185_Charon
+20187_Obelisk
+20189_Fenrir
+34328_Bowhead
+81040_Avalanche
+22442_Eos
+22444_Sleipnir
+22446_Vulture
+22448_Absolution
+22466_Astarte
+22468_Claymore
+22470_Nighthawk
+22474_Damnation
+22452_Heretic
+22456_Sabre
+22460_Eris
+22464_Flycatcher
+22544_Hulk
+22546_Skiff
+22548_Mackinaw
+23757_Archon
+23911_Thanatos
+23915_Chimera
+24483_Nidhoggur
+3514_Revenant
+22852_Hel
+23913_Nyx
+23917_Wyvern
+23919_Aeon
+42125_Vendetta
+11172_Helios
+11182_Cheetah
+11188_Anathema
+11192_Buzzard
+33397_Chremoas
+42246_Caedes
+44993_Pacifier
+48636_Hydra
+85062_Sidewinder
+11176_Crow
+11178_Raptor
+11184_Crusader
+11186_Malediction
+11196_Claw
+11198_Stiletto
+11200_Taranis
+11202_Ares
+33673_Whiptail
+35779_Imp
+11978_Scimitar
+11985_Basilisk
+11987_Guardian
+11989_Oneiros
+32790_Etana
+42245_Rabisu
+49713_Zarmazd
+11957_Falcon
+11963_Rapier
+11965_Pilgrim
+11969_Arazu
+33395_Moracha
+33675_Chameleon
+44995_Enforcer
+45531_Victor
+48635_Tiamat
+85229_Cobra
+11377_Nemesis
+12032_Manticore
+12034_Hound
+12038_Purifier
+45530_Virtuoso
+28352_Rorqual
+11174_Keres
+11190_Sentinel
+11194_Kitsune
+11387_Hyena
+60765_Raiju
+11995_Onyx
+12013_Broadsword
+12017_Devoter
+12021_Phobos
+35781_Fiend
+60764_Laelaps
+22428_Redeemer
+22430_Sin
+22436_Widow
+22440_Panther
+44996_Marshal
+85236_Python
+28659_Paladin
+28661_Kronos
+28665_Vargur
+28710_Golem
+28844_Rhea
+28846_Nomad
+28848_Anshar
+28850_Ark
+11959_Rook
+11961_Huginn
+11971_Lachesis
+20125_Curse
+28606_Orca
+42244_Porpoise
+29984_Tengu
+29986_Legion
+29988_Proteus
+29990_Loki
+2078_Zephyr
+4302_Oracle
+4306_Naga
+4308_Talos
+4310_Tornado
+12729_Crane
+12733_Prorator
+12735_Prowler
+12743_Viator
+81046_Deluge
+33697_Prospect
+37135_Endurance
+34317_Confessor
+34562_Svipul
+34828_Jackdaw
+35683_Hecate
+37457_Deacon
+37458_Kirin
+37459_Thalia
+37460_Scalpel
+37480_Bifrost
+37481_Pontifex
+37482_Stork
+37483_Magus
+52254_Draugur
+37604_Apostle
+37605_Minokawa
+37606_Lif
+37607_Ninazu
+42242_Dagon
+45645_Loggerhead
+45534_Monitor
+77281_Hubris
+77283_Bane
+77284_Karura
+77288_Valravn
+0_
+85237_None
+85238_None

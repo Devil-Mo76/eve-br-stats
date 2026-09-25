@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_name }} - 出勤统计{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">出勤统计</h1>
+
+    <div class="row">
+        <!-- 左侧提交区域 -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-users me-2"></i>提交舰队角色
+                </div>
+                <div class="card-body">
+                    <form id="fleetForm" method="POST" action="{{ url_for('attendance.submit_fleet') }}" autocomplete="off">
+                        <div class="mb-3">
+                            <label class="form-label">报告日期</label>
+                            <input type="date" class="form-control" name="fleet_date" id="fleetDate" required value="">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">报告类型</label>
+                            <!-- TODO(通用版): 选项来自 config.py 的 EVENT_TYPES，按自己军团的活动类型增删 -->
+                            <select class="form-select text-dark" name="event_type" id="eventType" required>
+                                <option value="" selected disabled class="text-secondary">选择活动类型</option>
+                                {% for t in event_types %}
+                                <option value="{{ t }}" class="text-dark">{{ t }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">舰队说明（可选）</label>
+                            <input type="text" class="form-control" name="fleet_note" id="fleetNote" placeholder="">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">角色列表（每行一个角色名）</label>
+                            <textarea class="form-control" name="fleet_members" id="fleetMembers" rows="8"
+                                placeholder="例：&#10;Character One&#10;Character Two&#10;Character Three" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" id="submitBtn">
+                            <i class="fas fa-plus-circle me-2"></i>添加舰队角色
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧统计区域 -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-chart-bar me-2"></i>实时统计数据
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="form-text" id="sessionInfo">报告生成日期：未选择日期</div>
+                        <button class="btn btn-sm btn-success" id="exportBtn" onclick="exportStats()" disabled>
+                            <i class="fas fa-file-excel me-1"></i>导出Excel
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="70%">角色名</th>
+                                    <th width="30%">出勤次数</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statsTable">
+                                <tr>
+                                    <td colspan="2" class="text-muted text-center">暂无统计数据</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>合计</th>
+                                    <th id="totalCount">0</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 成功提示模态框 -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-2 border-success">
+            <div class="modal-header bg-success-subtle border-0">
+                <h5 class="modal-title fw-bold text-black">提交成功</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fw-bold text-black mb-2">
+                    已成功添加 <span id="successCount" class="fw-bolder text-success">0</span> 个角色！
+                </p>
+                <p class="fw-bold text-black">文本框已清空，您可以继续提交下一组角色。</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-success fw-bold" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 角色名来自用户输入，写入 DOM 前统一转义，避免 XSS
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text == null ? '' : String(text);
+        return div.innerHTML;
+    }
+
+    // 存储当前会话状态
+    let currentSession = { date: null, eventType: null, note: null };
+
+    // 表单提交处理
+    document.getElementById('fleetForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = document.getElementById('submitBtn');
+        const originalText = submitBtn.innerHTML;
+
+        currentSession.date = document.getElementById('fleetDate').value;
+        currentSession.eventType = document.getElementById('eventType').value;
+        currentSession.note = document.getElementById('fleetNote').value;
+        updateSessionInfo();
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>提交中...';
+
+        try {
+            const response = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+            const data = await response.json();
+
+            if (data.status !== 'success') {
+                throw new Error(data.message || '提交失败');
+            }
+
+            document.getElementById('successCount').textContent = data.count;
+            new bootstrap.Modal(document.getElementById('successModal')).show();
+
+            document.getElementById('fleetMembers').value = '';
+            document.getElementById('fleetMembers').focus();
+
+            await refreshStats();
+            document.getElementById('exportBtn').disabled = false;
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    });
+
+    // 更新会话信息显示
+    function updateSessionInfo() {
+        const infoElement = document.getElementById('sessionInfo');
+        const { date, eventType, note } = currentSession;
+
+        if (date) {
+            let sessionInfo = `当前会话：${date} ${eventType || ''}`;
+            if (note) {
+                sessionInfo += ` - ${note}`;
+            }
+            infoElement.textContent = sessionInfo;
+            infoElement.className = 'form-text text-primary fw-bold';
+        } else {
+            infoElement.textContent = '当前会话：未选择日期';
+            infoElement.className = 'form-text text-muted';
+        }
+    }
+
+    // 刷新统计数据
+    async function refreshStats() {
+        try {
+            const response = await fetch("{{ url_for('attendance.get_stats') }}?_=" + Date.now());
+            const data = await response.json();
+
+            const tableBody = document.getElementById('statsTable');
+            let total = 0;
+
+            if (data.length > 0) {
+                tableBody.innerHTML = '';
+                data.forEach(item => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${escapeHtml(item.name)}</td>
+                            <td>${escapeHtml(item.count)}</td>
+                        </tr>
+                    `;
+                    total += item.count;
+                });
+            } else {
+                tableBody.innerHTML = '<tr><td colspan="2" class="text-muted text-center">暂无统计数据</td></tr>';
+            }
+
+            document.getElementById('totalCount').textContent = total;
+        } catch (error) {
+            console.error('刷新统计失败:', error);
+        }
+    }
+
+    // 导出Excel
+    async function exportStats() {
+        const btn = document.getElementById('exportBtn');
+        const originalText = btn.innerHTML;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>生成中...';
+
+        try {
+            const response = await fetch("{{ url_for('attendance.export_stats') }}");
+            if (!response.ok) {
+                throw new Error('导出失败');
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `舰队出勤统计_${currentSession.date || new Date().toLocaleDateString()}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    }
+
+    // 页面加载时初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedSession = sessionStorage.getItem('fleetSession');
+        if (savedSession) {
+            currentSession = JSON.parse(savedSession);
+            document.getElementById('fleetDate').value = currentSession.date || '';
+            document.getElementById('eventType').value = currentSession.eventType || '';
+            document.getElementById('fleetNote').value = currentSession.note || '';
+            updateSessionInfo();
+        }
+
+        // 日历默认值设为今天
+        if (!currentSession.date) {
+            const today = new Date();
+            const local = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+                .toISOString().split('T')[0];
+            document.getElementById('fleetDate').value = local;
+        }
+
+        // 有历史数据时直接开放导出按钮
+        fetch("{{ url_for('attendance.has_data') }}")
+            .then(r => r.json())
+            .then(d => {
+                if (d.has_data) {
+                    document.getElementById('exportBtn').disabled = false;
+                    refreshStats();
+                }
+            })
+            .catch(() => {});
+    });
+
+    // 监听表单字段变化
+    document.getElementById('fleetDate').addEventListener('change', function() {
+        currentSession.date = this.value;
+        updateSessionInfo();
+        sessionStorage.setItem('fleetSession', JSON.stringify(currentSession));
+    });
+
+    document.getElementById('eventType').addEventListener('change', function() {
+        currentSession.eventType = this.value;
+        updateSessionInfo();
+        sessionStorage.setItem('fleetSession', JSON.stringify(currentSession));
+    });
+
+    document.getElementById('fleetNote').addEventListener('input', function() {
+        currentSession.note = this.value;
+        updateSessionInfo();
+        sessionStorage.setItem('fleetSession', JSON.stringify(currentSession));
+    });
+</script>
+{% endblock %}

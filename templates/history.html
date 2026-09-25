@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4 text-center">历史报告</h1>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">报告名称</th>
+                <th scope="col">生成时间</th>
+                <th scope="col" width="180">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.name }}</td>
+                <td>{{ report.ctime.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <a href="{{ url_for('download_report', filename=report.name) }}" class="btn btn-sm btn-success">下载</a>
+                    <button class="btn btn-sm btn-danger"
+                            data-filename="{{ report.name }}"
+                            onclick="deleteReport(this.dataset.filename)">删除</button>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" class="text-center opacity-75">暂无历史报告</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function deleteReport(filename) {
+    if (!confirm('确定要删除此报告吗？')) {
+        return;
+    }
+    // 文件名可能含中文与特殊字符，必须编码后再拼进 URL
+    fetch(`/delete-report/${encodeURIComponent(filename)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('删除失败');
+            }
+            location.reload();
+        })
+        .catch(err => alert(err.message));
+}
+</script>
+{% endblock %}

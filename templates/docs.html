@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container operation-document mt-5">
+    <div class="card custom-card">
+        <div class="card-header bg-gradient-primary text-white">
+            <i class="fas fa-book me-2"></i>{{ site_name }} v{{ site_version }} 操作文档
+        </div>
+        <div class="card-body">
+            <h3 class="section-title"><i class="fas fa-cogs me-2 icon-highlight"></i><span class="title-highlight">系统功能</span></h3>
+            <p class="section-text highlight-text">
+                本系统用于分析 EVE Online 中的战斗报告（BR），统计指定军团成员的作战数据与出勤情况，并导出为 Excel 报表。
+            </p>
+            <p class="section-text highlight-text">主要功能包括：</p>
+            <ul class="section-list">
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>解析多个 BR 链接，统计成员出击次数、击杀数、总伤害与使用舰船</li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>按舰队活动记录成员出勤，生成出勤次数排行并导出 Excel</li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>生成带柱状图（伤害 / 击杀数 Top10）的 Excel 报表</li>
+            </ul>
+
+            <h3 class="section-title"><i class="fas fa-list-ol me-2 icon-highlight"></i><span class="title-highlight">[战斗统计分析]使用步骤</span></h3>
+            <ol class="section-list">
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>先到「管理 → 军团管理」添加你要统计的<b>军团 ID 与名称</b>（首次使用必须配置，否则会提示未配置军团）</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>在首页填写「选择报告日期」和「自定义报告名称」</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>粘贴 BR 链接（每行一个，格式形如 <code>https://br.evetools.org/br/xxxxxxxx</code>）</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>点击「生成报告」，完成后点击「下载最新报告」，文件默认下载到浏览器下载目录</li>
+            </ol>
+
+            <h3 class="section-title"><i class="fas fa-list-ol me-2 icon-highlight"></i><span class="title-highlight">[出勤统计分析]使用步骤</span></h3>
+            <ol class="section-list">
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>填写「报告日期」并选择「报告类型」</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>可选填舰队说明</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>在角色列表中粘贴本次出队的成员名称，<b>每行一个角色名</b></li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>点击「添加舰队角色」，右侧会实时刷新出勤次数统计</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>需要存档时点击「导出Excel」下载报表</li>
+            </ol>
+
+            <h3 class="section-title"><i class="fas fa-sliders me-2 icon-highlight"></i><span class="title-highlight">[管理]页面说明</span></h3>
+            <ul class="section-list">
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i><b>军团管理</b>：维护要统计的军团 ID / 名称，数据保存在 <code>data/corp_id.txt</code></li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i><b>角色管理</b>：手动补充或修正角色 ID / 名称映射，数据保存在 <code>data/char_id.txt</code></li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i><b>历史报告</b>：查看、下载、删除已生成的历史报表</li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i><b>系统日志</b>：查看 <code>data/system.log</code>，用于排查报错</li>
+            </ul>
+
+            <h3 class="section-title"><i class="fas fa-exclamation-triangle me-2 icon-highlight"></i><span class="title-highlight">注意事项</span></h3>
+            <ol class="section-list">
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>尽量不要开启 VPN 进行 BR 统计分析，避免接口连接异常</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>出现报错请刷新页面重试，或更换网络后重试</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>不要在短时间内高频统计 BR，避免被数据源接口限流</li>
+                <li><i class="fas fa-arrow-right me-2 icon-highlight"></i>出勤数据保存在 <code>data/attendance.json</code>，请勿手工损坏该文件</li>
+            </ol>
+
+            <h3 class="section-title"><i class="fas fa-code me-2 icon-highlight"></i><span class="title-highlight">二次开发：需要你自己改的地方</span></h3>
+            <p class="section-text highlight-text">
+                本项目为通用版本，所有品牌信息与行为参数都集中在 <code>config.py</code>。
+                在源码中搜索 <code>TODO(通用版)</code> 或 <code>【需修改】</code> 即可定位全部需要调整的位置，完整清单见仓库根目录 <code>操作手册.md</code>。
+            </p>
+            <ul class="section-list">
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>系统名称 / 页脚文案 / LOGO / 背景图 → <code>config.py</code></li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>监听地址与端口 / SECRET_KEY → <code>config.py</code></li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>出勤「报告类型」下拉选项 → <code>config.py</code> 的 <code>EVENT_TYPES</code></li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>数据源接口地址 / BR 链接格式 → <code>config.py</code></li>
+                <li><i class="fas fa-check-circle me-2 icon-highlight"></i>打包文件名与 EXE 图标 → <code>build.py</code>、<code>version_info.txt</code></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    .icon-highlight {
+        font-size: 1.5em;
+        color: #00bfff;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .title-highlight {
+        color: #00bfff;
+        font-weight: bold;
+        font-size: 1.3em;
+        text-shadow: 0 0 5px rgba(0, 191, 255, 0.3);
+    }
+
+    .highlight-text {
+        color: #ffffff;
+        font-size: 1.1em;
+        line-height: inherit;
+        margin-bottom: 20px;
+    }
+
+    .section-list li {
+        margin-bottom: 12px;
+        font-size: 1.1em;
+    }
+
+    .section-list i.fa-arrow-right {
+        color: #00bfff;
+    }
+
+    code {
+        color: #7fd7ff;
+        background: rgba(0, 191, 255, 0.1);
+        padding: 1px 6px;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
