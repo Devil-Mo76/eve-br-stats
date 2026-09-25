@@ -44,7 +44,8 @@ br-web/
 ├── build.py                # PyInstaller 打包脚本
 ├── version_info.txt        # EXE 版本信息（公司名 / 说明 / 版权）
 ├── requirements.txt
-├── 操作手册.md             # ★ 完整操作手册 + 需自行修改清单
+├── 操作手册.md             # ★ 详细操作手册（中文）
+├── OPERATION_MANUAL_EN.md  # ★ Detailed manual (English)
 ├── app_icon.ico            # EXE 图标（由 tools/make_icon.py 生成）
 ├── tools/
 │   └── make_icon.py        # 图标生成脚本（favicon + exe 图标 + PNG）
@@ -71,6 +72,18 @@ br-web/
    即可逐条定位。
 
 完整清单见 **[操作手册.md](操作手册.md)** 的「需自行修改清单」章节。
+
+---
+
+## 文档
+
+| 文档 | 语言 | 内容 |
+| --- | --- | --- |
+| [操作手册.md](操作手册.md) | 简体中文 | 详细操作手册：原理与数据流、部署、配置全表、功能详解、打包发布、排错问答、开发者指引 |
+| [OPERATION_MANUAL_EN.md](OPERATION_MANUAL_EN.md) | English | Detailed operation manual — same structure, chapter by chapter |
+| [data/README.md](data/README.md) | 简体中文 | 数据文件格式说明 |
+
+两份手册结构逐章对应。若出现不一致，**以中文版为准**。
 
 ---
 
